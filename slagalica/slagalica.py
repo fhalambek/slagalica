@@ -4,13 +4,11 @@ prazna = 0
 
 def akcija(event):
     global prazna
-    #print(prazna)
     bla = event.widget.ime
-    #print(bla)
     gumbi[prazna].config(image = slike[bla])
     gumbi[bla].config(image = slike[prazna])
+    slike[prazna], slike[bla] = slike[bla], slike[prazna]
     prazna = bla
-    #print(prazna)
     
 def ispis(event):
     global prazna
@@ -19,6 +17,7 @@ def ispis(event):
 window = Tk()
 window.geometry("400x400")
 window.resizable(False, False)
+window.configure(bg="#FFB6C1")
 
 slike = []
 gumbi = []
@@ -31,16 +30,23 @@ for i in range(1, 9):
 
 
 for i in range(9):
-    gumbi[i].config(image = slike[i], borderwidth = 0, highlightthickness = 0, width = 100, height = 100)
+    gumbi[i].config(image = slike[i], borderwidth = 0, highlightthickness = 0, width = 100, height = 100, bg="#DB7093")
     gumbi[i].ime = i
-    gumbi[i].bind("<Button>", akcija)
+    gumbi[i].bind("<Button-1>", akcija)
 
-gumb = Button(width = 50, height = 50, image = slike[0], borderwidth = 0, highlightthickness = 0)
-gumb.bind("<Button>", ispis)
+gumb = Button(width = 50, height = 50, image = PhotoImage(), borderwidth = 0, highlightthickness = 0, bg="red")
+gumb.bind("<Button-1>", ispis)
+#gumb.grid(row=0, column=0)
+#gumb.grid(row=4, column=4)
 cnt = 0
-for i in range(3):
-    for j in range(3):
-        gumbi[cnt].grid(row = i, column = j)
+window.grid_rowconfigure(0, weight=1)
+window.grid_columnconfigure(0, weight=1)
+window.grid_rowconfigure(4, weight=1)
+window.grid_columnconfigure(4, weight=1)
+
+for i in range(1, 4):
+    for j in range(1, 4):
+        gumbi[cnt].grid(row = i, column = j, sticky=NSEW)
         cnt += 1
-gumb.grid(row=3, column=3)
+        
 window.mainloop()
