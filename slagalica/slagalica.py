@@ -25,7 +25,7 @@ gumbi = []
 slike.append(PhotoImage())
 gumbi.append(Button(window))
 for i in range(1, 9):
-    slike.append(PhotoImage(file="{}.png".format(i)))
+    slike.append(PhotoImage(file="stepenice/{}.png".format(i)))
     gumbi.append(Button(window))
 
 
